@@ -1,0 +1,21 @@
+.root {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  width: 100%;
+  height: auto;
+  justify-content: space-between;
+  align-items: stretch;
+  align-content: unset;
+  min-width: 0;
+}
+.svg {
+  position: relative;
+  object-fit: cover;
+  width: 71px;
+  height: 33px;
+  flex-shrink: 0;
+}
+.headerMenu:global(.__wab_instance) {
+  position: relative;
+}
