@@ -1,4 +1,6 @@
 
+import { useQuery, QueryClient, ReactQueryCacheProvider } from 'react-query'
+import store from "../utilities/store";
 
 const CLIENT_ID = "429268482166-4mh3potnmvum3aeo6gnhsnra6kjbv09b.apps.googleusercontent.com"
 
@@ -39,8 +41,6 @@ function initClient() {
 
 }
 
-function isConnected () {return connected}
-
 //login
 function handleAuthClick (){
     // eslint-disable-next-line no-undef
@@ -60,14 +60,39 @@ function handleSignoutClick (){
     gapi.auth2.getAuthInstance().signOut();
 }
 
-function getPlaylist(playlistId){
-    console.log("getPlaylist", getPlaylist)
+function useGetPlaylist(playlistId, isFetchingYTPlaylist, token) {
+    const result = useQuery({
+        queryKey:["playlist", playlistId, token],
+        queryFn: () =>
+            getPlaylist(playlistId, token),
+        enabled: isFetchingYTPlaylist,
+        config: {
+            onSuccess(plaslists) {
+                for (const pl of plaslists) {
+                    QueryClient.setQueryData(
+                        ['playlist', {playlistId: pl.id}],
+                        pl
+                    )
+                }
+                store.isFetchingYTPlaylist = false
+            }
+        },
+        keepPreviousData : true
+    })
+    //let token = result.data.nextPageToken
+
+    return result
+}
+
+
+function getPlaylist(playlistId, nextPageToken){
+    console.log("getPlaylist")
     let playlistArray = [];
     const requestOptions = {
         playlistId: playlistId,
         part: 'snippet,contentDetails',
-        maxResults: 6
-
+        maxResults: 50,
+        nextPageToken:  nextPageToken | "CAoQAA"
     };
 
     // eslint-disable-next-line no-undef
@@ -75,18 +100,22 @@ function getPlaylist(playlistId){
 
         const playListItems = response.result.items
         console.log("playlist response.result ", response)
+        store.nextPageToken = response.result.nextPageToken
 
         if (playListItems) {
-            // Loop through videos and append output
             for (let i = 0, len = playListItems.length; i < len; i++ ) {
                 const item = playListItems[i];
 
                 const  videoObj = {
                     playlistId: playlistId,
-                    thumbnail:  item.snippet.thumbnails.medium?.url || "",
+                    thumbnail:  item.snippet.thumbnails.medium?.url.toString() || "",
                     title:  item.snippet.title,
                     publishedAt: item.snippet.publishedAt,
                     videoId: item.snippet.resourceId.videoId,
+                    id: item.snippet.id,
+                    channelName: item.snippet.videoOwnerChannelTitle,
+                    channelId: item.snippet.videoOwnerChannelId,
+
                     //duration: videoDetails.duration,
                     //channelName: videoDetails.channelName
                 };
@@ -102,4 +131,4 @@ function getPlaylist(playlistId){
 }
 
 
-export {isConnected, handleClientLoad, handleAuthClick, getPlaylist, handleSignoutClick, checkSignInStatus}
+export {handleSignoutClick, handleClientLoad, handleAuthClick, getPlaylist, useGetPlaylist, checkSignInStatus}

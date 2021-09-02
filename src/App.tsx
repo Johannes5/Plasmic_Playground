@@ -1,15 +1,15 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Section from "./components/Section";
 import {ThemeContext} from './components/plasmic/hub_hub/PlasmicGlobalVariant__Theme';
-import { fromEvent } from 'rxjs';
+
+import { QueryClientProvider, QueryClient } from "react-query"
+
+import store from "./utilities/store";
 
 
-
-import {isConnected, handleAuthClick, getPlaylist, checkSignInStatus,  handleSignoutClick, handleClientLoad} from "./services/youtubeAPI"
+import {checkSignInStatus, handleAuthClick, handleClientLoad, handleSignoutClick} from "./services/youtubeAPI"
 import Button from "./components/Button";
-import VideoItem from "./components/VideoItem";
-import {useMeasureDestructured} from "./utilities/useMeasureDestructured";
 
 
 let articlesArray = [
@@ -49,11 +49,12 @@ handleClientLoad()
 
 function App() {
     const theme = "dark"
-    const [articles, setArticles] = useState(articlesArray)
-    const [playlistClicked, setplaylistClicked] = useState<boolean>(false)
+    //const [articles, setArticles] = useState(articlesArray)
+   // const [playlistClicked, setplaylistClicked] = useState<boolean>(false)
+    const sectionRef = React.useRef<HTMLDivElement>(null)
 
-    // const authorizeButton = document.getElementById("authorize-button")
-    // const signoutButton = document.getElementById("signout-button")
+    const queryClient = new QueryClient()
+/*
     React.useEffect(() => {
         window.addEventListener('click', handleGetPlaylist)
 
@@ -61,19 +62,17 @@ function App() {
         return () => {
             window.removeEventListener('click', handleGetPlaylist)
         }
-    }, [])
+    }, [])*/
 
  /* const getPlaylistButton = document.getElementById("getPlaylist-button")
   //@ts-ignore
   const getPlaylistEvent$ = fromEvent(getPlaylistButton, 'click')
   getPlaylistEvent$.subscribe(() => console.log('Clicked!'));*/
 
-    const handleGetPlaylist = () => {
+   /* const handleGetPlaylist = () => {
         setplaylistClicked(true)
-    }
+    }*/
 
-    const sectionRef = React.useRef<HTMLDivElement>(null)
-    const [rect, rectRef] = useMeasureDestructured([sectionRef])
 
   React.useLayoutEffect(() => {
     if (sectionRef.current){
@@ -82,9 +81,6 @@ function App() {
   })
 
 
-  console.log("rect", rect)
-  console.log("rectRef", rectRef)
-  console.log("sectionRef", sectionRef)
 
 
     return (
@@ -95,7 +91,9 @@ function App() {
                 margin: 10,
                 gap: 10
             }} className="App">
-                <Section ref={sectionRef} playlistClicked={playlistClicked}/>
+                <QueryClientProvider client={queryClient}>
+                    <Section ref={sectionRef} />
+                </QueryClientProvider>
               <div>
                 <Button id={"authorize-button"} text={"Authorize"} onClick={handleAuthClick}/>
               </div>
@@ -103,7 +101,7 @@ function App() {
                 <Button id={"signout-button"} text={"Sign Out"} onClick={handleSignoutClick}/>
               </div>
               <div>
-                <Button id={"getPlaylist-button"} text={"get Playlist"} onClick={handleGetPlaylist}/>
+                <Button id={"getPlaylist-button"} text={"get Playlist"} onClick={() => store.isFetchingYTPlaylist = true}/>
               </div>
               <div>
                 <Button id={"checkSignInStatus-button"} text={"check Signin Status"} onClick={checkSignInStatus}/>

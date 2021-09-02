@@ -1,0 +1,101 @@
+.root {
+  display: inline-flex;
+  flex-direction: column;
+  position: relative;
+  width: auto;
+  height: auto;
+}
+.root > :global(.__wab_flex-container) {
+  flex-direction: column;
+}
+.root__selected > :global(.__wab_flex-container) {
+  margin-left: calc(0px - 0px);
+  width: calc(100% + 0px);
+  margin-top: calc(0px - 16px);
+  height: calc(100% + 16px);
+}
+.root__selected > :global(.__wab_flex-container) > *,
+.root__selected > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.root__selected > :global(.__wab_flex-container) > picture > img,
+.root__selected
+  > :global(.__wab_flex-container)
+  > :global(.__wab_slot)
+  > picture
+  > img {
+  margin-left: 0px;
+  margin-top: 16px;
+}
+.iconGridView {
+  width: 78px;
+  height: 85px;
+  display: block;
+  flex-shrink: 0;
+}
+.rectangle25 {
+  box-shadow: inset 0px 0px 0px 8.963px rgba(252, 250, 246, 1);
+  width: 42px;
+  height: 40px;
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: rgba(255, 255, 255, 0);
+  border-radius: 5.975px;
+}
+.rectangle26 {
+  transform: translate(0px, 0.19700000000000273px);
+  width: 28px;
+  height: 28px;
+  display: block;
+  position: absolute;
+  top: 50px;
+  left: 0px;
+  background: linear-gradient(#5978e8, #5978e8), rgba(213, 68, 90, 1);
+  border-radius: 5.975px;
+}
+.rectangle26__color_red {
+  background: #d6455b;
+}
+.rectangle27 {
+  transform: translate(-0.0589999999999975px, -0.4240000000000004px);
+  width: 28px;
+  height: 28px;
+  display: block;
+  position: absolute;
+  top: 6px;
+  left: 50px;
+  background: #5978e8;
+  border-radius: 5.975px;
+}
+.rectangle27__color_red {
+  background: #d6455b;
+}
+.rectangle28 {
+  box-shadow: inset 0px 0px 0px 8.963px rgba(252, 250, 246, 1);
+  transform: translate(0.06900000000000261px, -0.3789999999999978px);
+  width: 42px;
+  height: 40px;
+  display: block;
+  position: absolute;
+  top: 45px;
+  left: 36px;
+  background: rgba(255, 255, 255, 0);
+  border-radius: 5.975px;
+}
+.rectangle30 {
+  plasmic-display-none: false;
+  width: 43px;
+  height: 6px;
+  display: block;
+  position: relative;
+  left: auto;
+  top: auto;
+  background: rgba(33, 65, 179, 1);
+  flex-shrink: 0;
+  border-radius: 7.6px;
+}
+.rectangle30__selected {
+  left: auto;
+  top: auto;
+  align-self: center;
+}

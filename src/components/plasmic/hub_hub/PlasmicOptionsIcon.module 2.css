@@ -1,0 +1,61 @@
+.root {
+  display: block;
+  width: 36px;
+  height: 22.172691999999998px;
+  position: relative;
+}
+.img__cOekO {
+  position: absolute;
+  object-fit: cover;
+  width: auto;
+  height: 19.692px;
+  transform: scale(1.000000499999875, 1.0000004999998748)
+    rotate(90.0572957604145deg);
+  display: inline-block;
+  transform-origin: top left;
+  left: 19.71415300000001px;
+  top: 0.019691999999999155px;
+}
+.img__cOekO > picture > img {
+  object-fit: cover;
+}
+.img__cOekO > .__wab_img-spacer > img {
+  object-fit: cover;
+}
+.img__gk5R0 {
+  position: absolute;
+  object-fit: cover;
+  width: 22.153px;
+  height: 19.692px;
+  transform: scale(1.000000499999875, 1.0000004999998748)
+    rotate(90.0572957604145deg);
+  display: block;
+  transform-origin: top left;
+  left: 0px;
+  top: 0px;
+}
+.img__gk5R0 > picture > img {
+  object-fit: cover;
+}
+.img__gk5R0 > .__wab_img-spacer > img {
+  object-fit: cover;
+}
+.img__vaP8 {
+  position: absolute;
+  object-fit: cover;
+  width: 22.153px;
+  height: 19.692px;
+  display: block;
+  left: 0px;
+  top: 0px;
+}
+.img__vaP8 > picture > img {
+  object-fit: cover;
+}
+.img__vaP8 > .__wab_img-spacer > img {
+  object-fit: cover;
+}
+.img__variants2_sectionView__vaP8E6QnE {
+  width: auto;
+  display: inline-block;
+}

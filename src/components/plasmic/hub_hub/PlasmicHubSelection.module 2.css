@@ -1,0 +1,116 @@
+.root {
+  display: inline-flex;
+  flex-direction: column;
+  position: relative;
+  width: auto;
+  height: auto;
+}
+.figmaPaste {
+  display: block;
+  position: relative;
+  width: 282.187px;
+  height: 255px;
+  flex-shrink: 0;
+}
+.group354 {
+  width: 234px;
+  height: auto;
+  display: flex;
+  position: absolute;
+  left: 24px;
+  top: 100px;
+  flex-direction: column;
+}
+.group354 > :global(.__wab_flex-container) {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: unset;
+  margin-top: calc(0px - 4px);
+  height: calc(100% + 4px);
+}
+.group354 > :global(.__wab_flex-container) > *,
+.group354 > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.group354 > :global(.__wab_flex-container) > picture > img,
+.group354
+  > :global(.__wab_flex-container)
+  > :global(.__wab_slot)
+  > picture
+  > img {
+  margin-top: 4px;
+}
+.hubItem__mfTxG:global(.__wab_instance) {
+  position: relative;
+  top: auto;
+  left: auto;
+  flex-shrink: 0;
+}
+.hubItem__ikZwZ:global(.__wab_instance) {
+  position: relative;
+  flex-shrink: 0;
+}
+.hubTitle {
+  height: auto;
+}
+.hubItem___1UHk:global(.__wab_instance) {
+  position: relative;
+  flex-shrink: 0;
+}
+.hubItem__rdyTo:global(.__wab_instance) {
+  position: relative;
+  flex-shrink: 0;
+}
+.group355 {
+  width: auto;
+  height: 98px;
+  display: inline-flex;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  flex-direction: column;
+}
+.freeBox {
+  display: inline-flex;
+  position: relative;
+  flex-direction: column;
+  width: auto;
+  height: 43px;
+  flex-shrink: 0;
+}
+.slotCurrentHub {
+  font-family: "Open Sans", sans-serif;
+  font-size: 29.562px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 1);
+  text-align: center;
+  line-height: 43px;
+  letter-spacing: 0px;
+}
+.rectangle31 {
+  width: 36px;
+  height: 4px;
+  display: block;
+  position: relative;
+  left: auto;
+  top: auto;
+  align-self: center;
+  background: rgba(33, 65, 179, 1);
+  flex-shrink: 0;
+  border-radius: 7.6px;
+}
+.img {
+  position: relative;
+  object-fit: cover;
+  width: 21px;
+  height: 21px;
+  box-shadow: 0px 1.312px 6.562px 0px rgba(0, 0, 0, 0.2);
+  display: block;
+  align-self: center;
+  flex-shrink: 0;
+}
+.img > picture > img {
+  object-fit: cover;
+}
+.img > .__wab_img-spacer > img {
+  object-fit: cover;
+}
