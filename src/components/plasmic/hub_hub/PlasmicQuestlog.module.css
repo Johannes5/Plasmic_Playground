@@ -1,0 +1,100 @@
+.root {
+  display: inline-flex;
+  flex-direction: column;
+  position: relative;
+  width: auto;
+  height: auto;
+}
+.freeBox__ozTx6 {
+  display: block;
+  font-size: 10px;
+  text-align: center;
+  text-decoration-line: underline;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0px;
+  line-height: 25px;
+  color: #5978e8 /* plasmic-token: pMUHtTtb1 */;
+  width: 100%;
+  min-width: 0;
+}
+.questlogContainer {
+  filter: drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.15));
+  width: 255px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+      194deg,
+      rgba(52, 48, 49, 1) 115%,
+      rgba(42, 37, 38, 1) 228%
+    )
+    0% 0% / 100% 100% no-repeat padding-box border-box scroll;
+  border-radius: 10px;
+  padding: 12px 20px;
+}
+.questlogContainer > :global(.__wab_flex-container) {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: calc(0px - 5px);
+  height: calc(100% + 5px);
+}
+.questlogContainer > :global(.__wab_flex-container) > *,
+.questlogContainer > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.questlogContainer > :global(.__wab_flex-container) > picture > img,
+.questlogContainer
+  > :global(.__wab_flex-container)
+  > :global(.__wab_slot)
+  > picture
+  > img {
+  margin-top: 5px;
+}
+.questItem__ren:global(.__wab_instance) {
+  position: relative;
+  flex-shrink: 0;
+}
+.questItem__obD0:global(.__wab_instance) {
+  position: relative;
+}
+.questItem___5Gdgg:global(.__wab_instance) {
+  position: relative;
+}
+.questItem__koZxn:global(.__wab_instance) {
+  position: relative;
+}
+.questItem__xivwn:global(.__wab_instance) {
+  position: relative;
+}
+.questItem__vsBxM:global(.__wab_instance) {
+  position: relative;
+}
+.questItem__zt1Gi:global(.__wab_instance) {
+  position: relative;
+}
+.questItem___1LLtl:global(.__wab_instance) {
+  position: relative;
+}
+.hideChecklist {
+  position: relative;
+  width: auto;
+  height: 25px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: center;
+  flex-shrink: 0;
+}
+.freeBox__vLlhA {
+  display: block;
+  font-size: 10px;
+  text-align: center;
+  text-decoration-line: underline;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0px;
+  line-height: 25px;
+  color: #5978e8 /* plasmic-token: pMUHtTtb1 */;
+  width: 100%;
+  min-width: 0;
+}

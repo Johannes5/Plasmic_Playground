@@ -1,0 +1,12 @@
+.root {
+  object-fit: cover;
+  position: relative;
+  width: 100%;
+  min-width: 0;
+}
+.root > picture > img {
+  object-fit: cover;
+}
+.root > .__wab_img-spacer > img {
+  object-fit: cover;
+}

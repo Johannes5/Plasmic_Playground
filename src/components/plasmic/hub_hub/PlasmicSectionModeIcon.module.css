@@ -1,0 +1,102 @@
+.root {
+  display: inline-flex;
+  flex-direction: column;
+  position: relative;
+  width: auto;
+  height: auto;
+}
+.root > :global(.__wab_flex-container) {
+  flex-direction: column;
+}
+.root__selected > :global(.__wab_flex-container) {
+  align-items: center;
+  margin-left: calc(0px - 0px);
+  width: calc(100% + 0px);
+  margin-top: calc(0px - 16px);
+  height: calc(100% + 16px);
+}
+.root__selected > :global(.__wab_flex-container) > *,
+.root__selected > :global(.__wab_flex-container) > :global(.__wab_slot) > *,
+.root__selected > :global(.__wab_flex-container) > picture > img,
+.root__selected
+  > :global(.__wab_flex-container)
+  > :global(.__wab_slot)
+  > picture
+  > img {
+  margin-left: 0px;
+  margin-top: 16px;
+}
+.iconSectionView {
+  filter: drop-shadow(0px 7.454px 22.3635px rgba(0, 0, 0, 0.15));
+  width: 123px;
+  height: 79px;
+  display: block;
+  flex-shrink: 0;
+}
+.group68 {
+  transform: translate(0.24099999999999966px, 0px);
+  width: 119px;
+  height: 79px;
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 4px;
+}
+.rectangle25 {
+  box-shadow: inset 0px 0px 0px 11px #fcfaf6 /* plasmic-token: kgwkYLWcU */;
+  transform: translate(0px, 0.36299999999999955px);
+  width: 100%;
+  height: 71.54%;
+  display: block;
+  position: absolute;
+  top: 28.1%;
+  left: 0%;
+  background: rgba(255, 255, 255, 0);
+  border-radius: 7.454px;
+}
+.rectangle26 {
+  transform: translate(0.20700000000000074px, 0px);
+  width: 32.14%;
+  height: 15.33%;
+  display: block;
+  position: absolute;
+  top: 0%;
+  left: 17.68%;
+  background: linear-gradient(#5978e8, #5978e8), #5978e8;
+  border-radius: 7.454px;
+}
+.group69 {
+  width: 15px;
+  height: 15px;
+  display: block;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.rectangle27 {
+  width: 100%;
+  height: 100.61%;
+  display: block;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  background: linear-gradient(rgba(88, 119, 231, 1), rgba(88, 119, 231, 1)),
+    rgba(63, 98, 220, 0.85);
+  border-radius: 7.454px;
+}
+.rectangle30 {
+  plasmic-display-none: false;
+  width: 43px;
+  height: 6px;
+  display: block;
+  position: relative;
+  left: auto;
+  top: auto;
+  background: rgba(33, 65, 179, 1);
+  flex-shrink: 0;
+  border-radius: 7.6px;
+}
+.rectangle30__selected {
+  left: auto;
+  top: auto;
+}
