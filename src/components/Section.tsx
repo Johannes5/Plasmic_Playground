@@ -66,13 +66,16 @@ function Section_(props: SectionProps, ref: HTMLElementRefOf<"div">) {
 
     // filter private / deleted videos
     useEffect(() => {
-        if (isSuccess){
+        if (isSuccess && data){
             console.log("isSuccess _> store.nextPageToken", store.nextPageToken)
-            const moreData = data?.filter((item: { channelId: string | undefined }) => {
+            console.log("data.pages", data.pages)
+            //@ts-ignore
+            const moreData = data.pages?.filter((item: { channelId: string | undefined }) => {
                 return item.channelId !== undefined
             })
-            //playlist.current.push(moreData)
+            //@ts-ignore
             setPlaylist(moreData)
+            //playlist.current.push(moreData)
             //store.playlist.concat(moreData)
             console.log("playlist", playlist, "moreData", moreData)
         }

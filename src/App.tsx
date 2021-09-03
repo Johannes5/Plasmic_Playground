@@ -89,7 +89,8 @@ function App() {
                 display: "grid",
                 justifyContent: "center",
                 margin: 10,
-                gap: 10
+                gap: 10,
+                //width: "100%",
             }} className="App">
                 <QueryClientProvider client={queryClient}>
                     <Section ref={sectionRef} />

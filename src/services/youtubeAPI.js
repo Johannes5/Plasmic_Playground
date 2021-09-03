@@ -1,5 +1,5 @@
 
-import { useQuery, QueryClient, ReactQueryCacheProvider } from 'react-query'
+import { useQuery, QueryClient, useInfiniteQuery,  } from 'react-query'
 import store from "../utilities/store";
 
 const CLIENT_ID = "429268482166-4mh3potnmvum3aeo6gnhsnra6kjbv09b.apps.googleusercontent.com"
@@ -60,11 +60,11 @@ function handleSignoutClick (){
     gapi.auth2.getAuthInstance().signOut();
 }
 
-function useGetPlaylist(playlistId, isFetchingYTPlaylist, token) {
-    const result = useQuery({
-        queryKey:["playlist", playlistId, token],
-        queryFn: () =>
-            getPlaylist(playlistId, token),
+function useGetPlaylist(playlistId, isFetchingYTPlaylist, nextPageToken) {
+    const result = useInfiniteQuery({
+        queryKey:["playlist", playlistId, ],
+        queryFn: ({pageParam = "CAoQAA"}) =>
+            getPlaylist(playlistId, pageParam),
         enabled: isFetchingYTPlaylist,
         config: {
             onSuccess(plaslists) {
@@ -77,23 +77,24 @@ function useGetPlaylist(playlistId, isFetchingYTPlaylist, token) {
                 store.isFetchingYTPlaylist = false
             }
         },
-        keepPreviousData : true
+        getNextPageParam: (lastPage, pages) => lastPage.nextPageToken
     })
-    //let token = result.data.nextPageToken
 
     return result
 }
 
 
-function getPlaylist(playlistId, nextPageToken){
+function getPlaylist(playlistId, pageParam){
     console.log("getPlaylist")
     let playlistArray = [];
     const requestOptions = {
         playlistId: playlistId,
         part: 'snippet,contentDetails',
         maxResults: 50,
-        nextPageToken:  nextPageToken | "CAoQAA"
+        nextPageToken:  pageParam // | "CAoQAA"
     };
+
+    //
 
     // eslint-disable-next-line no-undef
     return gapi.client.youtube.playlistItems.list(requestOptions).then(async function(response) {
