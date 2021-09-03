@@ -24,8 +24,8 @@ function Section_(props: SectionProps, ref: HTMLElementRefOf<"div">) {
     //@ts-ignore
     const forceUpdate = React.useCallback(() => updateState({}), []);*/
 
-    const {isFetchingYTPlaylist, nextPageToken} = useSnapshot(store)
-    //const [nextPageToken, setNextPageToken] = useState<string>("CAoQAA")
+    const {isFetchingYTPlaylist,} = useSnapshot(store)
+    const [nextPageToken, setNextPageToken] = useState<string>("CAoQAA")
 
     const maxItems = 9
     const [slicePosition, setSlicePosition] = useState<number>(0)
@@ -35,7 +35,6 @@ function Section_(props: SectionProps, ref: HTMLElementRefOf<"div">) {
     //const playlist = useRef<Object[]>([])
 
     console.log("slicePosition", slicePosition)
-
 
 
     // Todo: const [itemSizeFactor, maxItems, (availableWidth, col#, row#, screensize, currentBreakpoint) ] = useLayoutSettings()
@@ -54,6 +53,7 @@ function Section_(props: SectionProps, ref: HTMLElementRefOf<"div">) {
         leftHidden.current = false
     }
 
+    console.log("💩")
 
 
     const videoRef = React.useRef<HTMLDivElement>(null)
@@ -61,34 +61,30 @@ function Section_(props: SectionProps, ref: HTMLElementRefOf<"div">) {
     const headerRef = React.useRef<HTMLDivElement>(null)
 
 
-
-    //function getYTPlaylist
     const playlistId: string = "PLRMlbFaO1aqNibW0_7dhYsWSWti9HIF0W" // Programming: PLRMlbFaO1aqNibW0_7dhYsWSWti9HIF0W // Timo: "PL4patPqPZcYdwzyr8jU4DbI79beMdmyFx" //"https://youtube.com/playlist?list=PL4patPqPZcYdwzyr8jU4DbI79beMdmyFx"// L-Ph: "PLRMlbFaO1aqMAL-P4F3jFNZYFG9LI4poU"
     const {isLoading, isSuccess, error, data} = useGetPlaylist(playlistId, isFetchingYTPlaylist, nextPageToken)
-    //console.log("data.nextPageToken", data.nextPageToken)
-
 
     // filter private / deleted videos
+    useEffect(() => {
+        if (isSuccess){
+            console.log("isSuccess _> store.nextPageToken", store.nextPageToken)
+            const moreData = data?.filter((item: { channelId: string | undefined }) => {
+                return item.channelId !== undefined
+            })
+            //playlist.current.push(moreData)
+            setPlaylist(moreData)
+            //store.playlist.concat(moreData)
+            console.log("playlist", playlist, "moreData", moreData)
+        }
+    }, [data, isSuccess,])
 
+    // fire when more youtube playlist data is needed
 
-
-    if (isSuccess) {
-        console.log("isSuccess _> store.nextPageToken", store.nextPageToken)
-        const moreData = data?.filter((item: { channelId: string | undefined }) => {
-            return item.channelId !== undefined
-        })
-        //playlist.push(moreData)
-        setPlaylist(moreData)
-        console.log("playlist", playlist, "moreData", moreData)
-    }
-
-
-    //45
-    if (playlist && (slicePosition + maxItems) > playlist.length) {
-        //setNextPageToken(store.nextPageToken)
-        //playlist.concat(data)
-    }
-
+    useEffect(() => {
+        if (playlist && (slicePosition + maxItems) > playlist.length) {
+            setNextPageToken(store.nextPageToken)
+        }
+    },[playlist, slicePosition])
 
 
     function round(value: number, decimals: number) {
@@ -96,7 +92,7 @@ function Section_(props: SectionProps, ref: HTMLElementRefOf<"div">) {
         return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
     }
 
-    let rect  = useMeasure(contentRef, [])
+    let rect = useMeasure(contentRef, [])
     //@ts-ignore
     const sectionContainerWidth: number = Math.round(rect?.width)
 
@@ -119,24 +115,17 @@ function Section_(props: SectionProps, ref: HTMLElementRefOf<"div">) {
     }, [ref, rect, /*childWidth*/]);
 
 
-
     const handleLeftArrowClick = () => {
-        console.log("lefty", slicePosition)
+        //console.log("lefty", )
         setSlicePosition(pos => pos -= maxItems)
 
-        console.log("lefty after", slicePosition)
     }
 
     const handleRightArrowClick = () => {
-        console.log("righty",slicePosition)
-
-
+        //console.log("righty",)
         setSlicePosition(pos => pos += maxItems)
 
-
-        console.log("righty after",slicePosition)
     }
-
 
 
     //@ts-ignore
@@ -146,7 +135,7 @@ function Section_(props: SectionProps, ref: HTMLElementRefOf<"div">) {
 
         sectionHeader={{ref: headerRef}}
 
-        sectionContent={isSuccess && playlist.length > 0 && playlist.slice(slicePosition, slicePosition + maxItems).map((item: any) =>
+        sectionContent={isSuccess && playlist?.length > 0 && playlist.slice(slicePosition, slicePosition + maxItems).map((item: any) =>
             <VideoItem key={item.title} ref={videoRef} title={item.title} videoThumbnail={item.thumbnail}
                        channel={item.channelName}
                        itemSizeFactor={itemSizeFactor}
@@ -172,6 +161,7 @@ function Section_(props: SectionProps, ref: HTMLElementRefOf<"div">) {
 }
 
 const Section = React.forwardRef(Section_)
-export default Section
+//export default Section
+export default React.memo(Section)
 
 
