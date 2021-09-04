@@ -26,6 +26,7 @@ function Section_(props: SectionProps, ref: HTMLElementRefOf<"div">) {
 
     const {isFetchingYTPlaylist,} = useSnapshot(store)
     const [nextPageToken, setNextPageToken] = useState<string>("CAoQAA")
+    const [pageCount, setPageCount] = useState<number>(0)
 
     const maxItems = 9
     const [slicePosition, setSlicePosition] = useState<number>(0)
@@ -34,8 +35,9 @@ function Section_(props: SectionProps, ref: HTMLElementRefOf<"div">) {
     const [playlist, setPlaylist] = useState<Object[]>([])
     //const playlist = useRef<Object[]>([])
 
+    //console.log("💩")
     console.log("slicePosition", slicePosition)
-
+    console.log("playlist", playlist)
 
     // Todo: const [itemSizeFactor, maxItems, (availableWidth, col#, row#, screensize, currentBreakpoint) ] = useLayoutSettings()
 
@@ -53,7 +55,7 @@ function Section_(props: SectionProps, ref: HTMLElementRefOf<"div">) {
         leftHidden.current = false
     }
 
-    console.log("💩")
+
 
 
     const videoRef = React.useRef<HTMLDivElement>(null)
@@ -64,28 +66,38 @@ function Section_(props: SectionProps, ref: HTMLElementRefOf<"div">) {
     const playlistId: string = "PLRMlbFaO1aqNibW0_7dhYsWSWti9HIF0W" // Programming: PLRMlbFaO1aqNibW0_7dhYsWSWti9HIF0W // Timo: "PL4patPqPZcYdwzyr8jU4DbI79beMdmyFx" //"https://youtube.com/playlist?list=PL4patPqPZcYdwzyr8jU4DbI79beMdmyFx"// L-Ph: "PLRMlbFaO1aqMAL-P4F3jFNZYFG9LI4poU"
     const {isLoading, isSuccess, error, data} = useGetPlaylist(playlistId, isFetchingYTPlaylist, nextPageToken)
 
-    // filter private / deleted videos
+
+    // filter private / deleted videos -> add moreData to playlist
     useEffect(() => {
         if (isSuccess && data){
-            console.log("isSuccess _> store.nextPageToken", store.nextPageToken)
-            console.log("data.pages", data.pages)
+            console.log("isSuccess 🦄 --> store.nextPageToken", store.nextPageToken)
+            console.log("data", data)
+            console.log("data.pages", data.pages) //why is it not all pages?
+            console.log("pageCount", pageCount)
             //@ts-ignore
-            const moreData = data.pages?.filter((item: { channelId: string | undefined }) => {
+            const moreData = data.pages[0]?.filter((item: { channelId: string | undefined }) => {
                 return item.channelId !== undefined
             })
-            //@ts-ignore
-            setPlaylist(moreData)
+            console.log("moreData", moreData)
+            if (playlist.length > 0) {
+                setPlaylist((pl) => [ ...pl, ...moreData])
+            } else {
+                setPlaylist(moreData)
+            }
+
             //playlist.current.push(moreData)
             //store.playlist.concat(moreData)
-            console.log("playlist", playlist, "moreData", moreData)
         }
     }, [data, isSuccess,])
 
-    // fire when more youtube playlist data is needed
 
+
+    // fire when more youtube playlist data is needed
     useEffect(() => {
-        if (playlist && (slicePosition + maxItems) > playlist.length) {
-            setNextPageToken(store.nextPageToken)
+        if (playlist && (slicePosition + 2*maxItems) > playlist.length &&  (slicePosition + 2*maxItems) > 50 ) {
+            console.log("about to fetch moreData 🦄",)
+            setPageCount(p => ++p)
+            setNextPageToken(store.nextPageToken) //should trigger Query
         }
     },[playlist, slicePosition])
 
@@ -100,7 +112,7 @@ function Section_(props: SectionProps, ref: HTMLElementRefOf<"div">) {
     const sectionContainerWidth: number = Math.round(rect?.width)
 
     // efforts to figure out the available width
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (ref) {
             //console.log("ref?.current?.children[0].clientWidth", ref?.current?.children[0].children[0].clientWidth)
 
@@ -119,13 +131,13 @@ function Section_(props: SectionProps, ref: HTMLElementRefOf<"div">) {
 
 
     const handleLeftArrowClick = () => {
-        //console.log("lefty", )
+        console.log("👈lefty", )
         setSlicePosition(pos => pos -= maxItems)
 
     }
 
     const handleRightArrowClick = () => {
-        //console.log("righty",)
+        console.log("👉righty",)
         setSlicePosition(pos => pos += maxItems)
 
     }
@@ -133,7 +145,7 @@ function Section_(props: SectionProps, ref: HTMLElementRefOf<"div">) {
 
     //@ts-ignore
     return <PlasmicSection
-        root={{ref}}
+        root={{ref, style:{margin: "0 auto"}}}
         {...props}
 
         sectionHeader={{ref: headerRef}}

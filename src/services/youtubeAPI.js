@@ -1,6 +1,7 @@
 
 import { useQuery, QueryClient, useInfiniteQuery,  } from 'react-query'
 import store from "../utilities/store";
+import {useSnapshot} from "valtio";
 
 const CLIENT_ID = "429268482166-4mh3potnmvum3aeo6gnhsnra6kjbv09b.apps.googleusercontent.com"
 
@@ -17,7 +18,7 @@ let connected = false
 // Load auth2 library
 function handleClientLoad() {
     // eslint-disable-next-line no-undef
-    gapi.load('client:auth2', initClient);
+    gapi.load('client:auth2', initClient)
     console.log("handleClientLoad",)
 }
 
@@ -62,9 +63,9 @@ function handleSignoutClick (){
 
 function useGetPlaylist(playlistId, isFetchingYTPlaylist, nextPageToken) {
     const result = useInfiniteQuery({
-        queryKey:["playlist", playlistId, ],
-        queryFn: ({pageParam = "CAoQAA"}) =>
-            getPlaylist(playlistId, pageParam),
+        queryKey:["playlist", playlistId, nextPageToken],
+        queryFn: ({nextPageToken} /*= "CAoQAA"*/) =>
+            getPlaylist(playlistId, nextPageToken),
         enabled: isFetchingYTPlaylist,
         config: {
             onSuccess(plaslists) {
@@ -77,7 +78,11 @@ function useGetPlaylist(playlistId, isFetchingYTPlaylist, nextPageToken) {
                 store.isFetchingYTPlaylist = false
             }
         },
-        getNextPageParam: (lastPage, pages) => lastPage.nextPageToken
+        getNextPageParam: (lastPage, pages) => {
+            //console.log("🐳 inside getNextPageParam")
+            //console.log("nextPageToken", nextPageToken)
+            return nextPageToken
+        }
     })
 
     return result
@@ -85,27 +90,32 @@ function useGetPlaylist(playlistId, isFetchingYTPlaylist, nextPageToken) {
 
 
 function getPlaylist(playlistId, pageParam){
-    console.log("getPlaylist")
-    let playlistArray = [];
+    console.log("🐝 getPlaylist pageParam", pageParam)
+    //const pageToken = store.nextPageToken
+    //console.log("pageToken", pageToken)
+
+    //const pageToken = useSnapshot(store.nextPageToken);
+
+    let playlistArray = []
     const requestOptions = {
         playlistId: playlistId,
         part: 'snippet,contentDetails',
         maxResults: 50,
-        nextPageToken:  pageParam // | "CAoQAA"
-    };
+        pageToken:  store.nextPageToken // | "CAoQAA"
+    }
 
-    //
-
+    //gapi undefined?
     // eslint-disable-next-line no-undef
     return gapi.client.youtube.playlistItems.list(requestOptions).then(async function(response) {
 
         const playListItems = response.result.items
-        console.log("playlist response.result ", response)
+        console.log("🐝 API response first item ", response.result.items[0].snippet.title,"store.nextPageToken before", store.nextPageToken)
         store.nextPageToken = response.result.nextPageToken
+        console.log("response", response, "🐝 nextPageToken ", response.result.nextPageToken)
 
         if (playListItems) {
             for (let i = 0, len = playListItems.length; i < len; i++ ) {
-                const item = playListItems[i];
+                const item = playListItems[i]
 
                 const  videoObj = {
                     playlistId: playlistId,
@@ -121,13 +131,13 @@ function getPlaylist(playlistId, pageParam){
                     //channelName: videoDetails.channelName
                 };
 
-                playlistArray.push(videoObj);
+                playlistArray.push(videoObj)
             }
 
         } else {
-            console.log('No Uploaded Videos');
+            console.log('No Uploaded Videos')
         }
-        return playlistArray;
+        return playlistArray
     });
 }
 

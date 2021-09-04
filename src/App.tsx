@@ -87,14 +87,15 @@ function App() {
         <ThemeContext.Provider value={theme}>
             <div style={{
                 display: "grid",
-                justifyContent: "center",
-                margin: 10,
+                alignSelf: "center",
+                //justifyContent: "center",
+                margin: "auto",
                 gap: 10,
-                //width: "100%",
+                width: "90%",
             }} className="App">
-                <QueryClientProvider client={queryClient}>
-                    <Section ref={sectionRef} />
-                </QueryClientProvider>
+                    <QueryClientProvider client={queryClient}>
+                        <Section ref={sectionRef} />
+                    </QueryClientProvider>
               <div>
                 <Button id={"authorize-button"} text={"Authorize"} onClick={handleAuthClick}/>
               </div>

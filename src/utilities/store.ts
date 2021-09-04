@@ -12,8 +12,8 @@ interface Store {
 
 const store = proxy<Store>({
     isFetchingYTPlaylist: false,
-        nextPageToken: "CAoQAA",
-    playlist: [],
+        nextPageToken: "", //"EAAaBlBUOkNESQ",// "CAoQAA",
+        playlist: [],
 })
 
 devtools(store, "Fetching")
