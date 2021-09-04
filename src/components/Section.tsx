@@ -64,13 +64,13 @@ function Section_(props: SectionProps, ref: HTMLElementRefOf<"div">) {
 
 
     const playlistId: string = "PLRMlbFaO1aqNibW0_7dhYsWSWti9HIF0W" // Programming: PLRMlbFaO1aqNibW0_7dhYsWSWti9HIF0W // Timo: "PL4patPqPZcYdwzyr8jU4DbI79beMdmyFx" //"https://youtube.com/playlist?list=PL4patPqPZcYdwzyr8jU4DbI79beMdmyFx"// L-Ph: "PLRMlbFaO1aqMAL-P4F3jFNZYFG9LI4poU"
-    const {isLoading, isSuccess, error, data} = useGetPlaylist(playlistId, isFetchingYTPlaylist, nextPageToken)
+    const {isLoading, isSuccess, error, data} = useGetPlaylist(playlistId, isFetchingYTPlaylist, pageCount)
 
 
     // filter private / deleted videos -> add moreData to playlist
     useEffect(() => {
         if (isSuccess && data){
-            console.log("isSuccess 🦄 --> store.nextPageToken", store.nextPageToken)
+            console.log("isSuccess 🦄 --> store.nextPageToken", )
             console.log("data", data)
             console.log("data.pages", data.pages) //why is it not all pages?
             console.log("pageCount", pageCount)
@@ -97,7 +97,7 @@ function Section_(props: SectionProps, ref: HTMLElementRefOf<"div">) {
         if (playlist && (slicePosition + 2*maxItems) > playlist.length &&  (slicePosition + 2*maxItems) > 50 ) {
             console.log("about to fetch moreData 🦄",)
             setPageCount(p => ++p)
-            setNextPageToken(store.nextPageToken) //should trigger Query
+            //setNextPageToken(store.nextPageToken) //should trigger Query
         }
     },[playlist, slicePosition])
 

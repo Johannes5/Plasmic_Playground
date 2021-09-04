@@ -109,7 +109,7 @@ function getPlaylist(playlistId, pageParam){
     return gapi.client.youtube.playlistItems.list(requestOptions).then(async function(response) {
 
         const playListItems = response.result.items
-        console.log("🐝 API response first item ", response.result.items[0].snippet.title,"store.nextPageToken before", store.nextPageToken)
+        console.log("🐝 API response first item ", response.result.items[0].snippet.title,) //"store.nextPageToken before", store.nextPageToken
         store.nextPageToken = response.result.nextPageToken
         console.log("response", response, "🐝 nextPageToken ", response.result.nextPageToken)
 
